@@ -1,0 +1,34 @@
+LINE 1:
+Verilog error @
+C input missing
+missing semicolon
+
+Line 3;
+Output G uninitialized
+
+LINE 4;
+Wire 1,2,3 not initialized.
+
+LINE 5;
+wrong name G1
+output should be w1 not C
+
+LINE 6;
+No name G2
+wrong output w3 instead of w2
+no semicolon
+
+LINE 7;
+Xnor instead of Xor gate
+Wrong name G2 instead G3
+Wrong parameters (w3,A,C);
+
+LINE 8;
+Wrong parameters (F,w1,w2);
+
+LINE 9;
+Wrong name G4 instead of G5
+Wrong parameters (G,w2,w3)
+
+LINE 10;
+No endmodule command
