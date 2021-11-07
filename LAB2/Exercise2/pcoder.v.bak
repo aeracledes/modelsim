@@ -1,0 +1,19 @@
+module pcoder(D3,D2,D1,D0,Y1,Y0,Z);
+
+input D3,D2,D1,D0;
+output reg Y1,Y0,Z;
+reg [2:0] OY;
+
+always @(*)
+	OY = 3'b000;
+	case ({D3,D2,D1,D0})
+		4'b0000: OY = 3'b001;
+		4'b0001: OY = 3'b000;
+		4'b001x: OY = 3'b010;
+		4'b01xx: OY = 3'b100;
+		4'b1xxx: OY = 3'b110;
+	{Y1,Y0,Z} = OY;
+	endcase
+endmodule
+	
+
