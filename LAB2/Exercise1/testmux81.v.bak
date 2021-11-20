@@ -1,4 +1,4 @@
-testmux81{I,S,Y}
+testmux81(I,S,Y)
 mux81 CUT1(I,S,Y);
 initial
 begin
