@@ -1,34 +1,25 @@
-module Mux16to1(DataArray, Select, DataOut);
-   input [15:0] DataArray;
-   input [3:0]  Select;
-   output       DataOut;
+module mux161(A,S3,S2,S1,S0,Y);
+input [15:0] A;
+input S3,S2,S1,S0;
+output reg Y;
 
-   function Mux16to1_f;
-      input [15:0] DataArray;
-      input        Select;
-
-      begin
-         case (Select)
-               0:       Mux16to1_f = DataArray[0];
-               1:       Mux16to1_f = DataArray[1];
-               2:       Mux16to1_f = DataArray[2];
-               3:       Mux16to1_f = DataArray[3];
-               4:       Mux16to1_f = DataArray[4];
-               5:       Mux16to1_f = DataArray[5];
-               6:       Mux16to1_f = DataArray[6];
-               7:       Mux16to1_f = DataArray[7];
-               8:       Mux16to1_f = DataArray[8];
-               9:       Mux16to1_f = DataArray[9];
-               10:      Mux16to1_f = DataArray[10];        
-               11:      Mux16to1_f = DataArray[11];
-               12:      Mux16to1_f = DataArray[12];
-               13:      Mux16to1_f = DataArray[13];
-               14:      Mux16to1_f = DataArray[14];
-               default: Mux16to1_f = DataArray[15];
-         endcase
-      end
-   endfunction
-
-   assign DataOut = Mux16to1_f(DataArray,Select);
-
-endmodule 
+	always @ (*)
+		case ({S3,S2,S2,S1,S0}) 
+			4'b0000: Y = A[0];
+			4'b0001: Y = A[1];
+			4'b0010: Y = A[2];
+			4'b0011: Y = A[3];
+			4'b0100: Y = A[4];
+			4'b0101: Y = A[5];
+			4'b0110: Y = A[6];
+			4'b0111: Y = A[7];
+			4'b1000: Y = A[8];
+			4'b1001: Y = A[9];
+			4'b1010: Y = A[10];
+			4'b1011: Y = A[11];
+			4'b1100: Y = A[12];
+			4'b1101: Y = A[13];
+			4'b1110: Y = A[14];
+			4'b1111: Y = A[15];
+		endcase
+endmodule
