@@ -1,4 +1,4 @@
-module mux81(I,S,Y);
+module mux81(Y,I,S);
 output Y;
 input [7:0] I;
 input [2:0] S;
@@ -12,7 +12,7 @@ mux_case vas6(K[6],K[4:3],S[1]);
 mux_case vas7(Y,K[6:5],S[2]);
 endmodule
 
-module mux_case(I,S,Y);
+module mux_case(Y,I,S);
 output reg Y;
 input [1:0] I;
 input S;
