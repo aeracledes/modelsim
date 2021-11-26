@@ -20,6 +20,6 @@ begin
 	#10
 	A=8'hB3; B=8'h07; Cin = 1'b0;
 	#10
-	A=8'b1; B = 8'b11; Cin = 1'b1;
+	A=8b'1; B =8'b11; Cin = 1'b1;
 end
 endmodule

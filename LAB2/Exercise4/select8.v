@@ -8,10 +8,10 @@ module select8(
 	wire [3:0] S0,S1,A_1,B_1,A_2,B_2,SL,SH;
 	assign C0 = 1'b0;
 	assign C1 = 1'b1;
-	assign A_1{A[3],A[2],A[1],A[0]};
-	assign B_1{B[3],B[2],B[1],B[0]};
-	assign A_2{A[7],A[6],A[5],A[4]};
-	assign B_2{B[7],B[6],B[5],B[4]};
+	assign A_1={A[3],A[2],A[1],A[0]};
+	assign B_1={B[3],B[2],B[1],B[0]};
+	assign A_2={A[7],A[6],A[5],A[4]};
+	assign B_2={B[7],B[6],B[5],B[4]};
 
 	cla4 ADD1(SL,CADD1,A_1,B_1,Cin);
 	cla4 ADD2(S0,CADD2,A_2,B_2,C0);
