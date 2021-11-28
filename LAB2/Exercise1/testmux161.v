@@ -1,18 +1,27 @@
-module testmux161; 
+module testmux161;
+reg [15:0] I;
+reg [3:0] S;
 wire Y;
-reg [15:0]A;
-reg S3,S2,S1,S0;
-mux161 CUT1(A,S3,S2,S1,S0,Y);
-initial 
+mux161 CUT1(I,S,Y);
+initial
 begin
-A=16'b0; S3=1'b0; S2=1'b0; S1=1'b0; S0=1'b0;
-#500 $finish; 
-end 
-always #1 A=~A;
-always #9 S0=~S0;
-always #10 S1=~S1;
-always #11 S2=~S2;
-always #11 S3=~S3;
-always@(A or S0 or S1 or S2 or S3) 
-$monitor("At time = %t, Output = %d", $time, Y); 
-endmodule;
+I = 8'b10110110;
+	S = 4'b0000;
+#2	S = 3'b0001;
+#2	S = 3'b0010;
+#2	S = 3'b0011;
+#2	S = 3'b0100;
+#2	S = 3'b0101;
+#2	S = 3'b0110;
+#2	S = 3'b0111;
+#2	S = 3'b1000;
+#2	S = 3'b1001;
+#2	S = 3'b1010;
+#2	S = 3'b1011;
+#2	S = 3'b1100;
+#2	S = 3'b1101;
+#2	S = 3'b1110;
+#2	S = 3'b1111;
+end
+initial $monitor("time=%g, Y=%b , S=%b , I=%b",$time,Y,S,I);
+endmodule

@@ -1,25 +1,36 @@
-module mux161(A,S3,S2,S1,S0,Y);
-input [15:0] A;
-input S3,S2,S1,S0;
-output reg Y;
-
-	always @ (*)
-		case ({S3,S2,S2,S1,S0}) 
-			4'b0000: Y = A[0];
-			4'b0001: Y = A[1];
-			4'b0010: Y = A[2];
-			4'b0011: Y = A[3];
-			4'b0100: Y = A[4];
-			4'b0101: Y = A[5];
-			4'b0110: Y = A[6];
-			4'b0111: Y = A[7];
-			4'b1000: Y = A[8];
-			4'b1001: Y = A[9];
-			4'b1010: Y = A[10];
-			4'b1011: Y = A[11];
-			4'b1100: Y = A[12];
-			4'b1101: Y = A[13];
-			4'b1110: Y = A[14];
-			4'b1111: Y = A[15];
-		endcase
+module mux161(
+	input [15:0] I,
+	input [3:0] S,
+	output Y
+	);
+wire [1:0] T;
+mux81 MUXA(T[0],I[7:0],S[2:0]);
+mux81 MUXB(T[1],I[15:8],S[2:0]);
+mux_case MUXC(Y,T[1:0],S[3]);
 endmodule
+module mux81(Y,I,S);
+output Y;
+input [7:0] I;
+input [2:0] S;
+wire [6:1] K ;
+mux_case MUX1(K[1],I[1:0],S[0]);
+mux_case MUX2(K[2],I[3:2],S[0]);
+mux_case MUX3(K[3],I[5:4],S[0]);
+mux_case MUX4(K[4],I[7:6],S[0]);
+mux_case MUX5(K[5],K[2:1],S[1]);
+mux_case MUX6(K[6],K[4:3],S[1]);
+mux_case MUX7(Y,K[6:5],S[2]);
+endmodule
+
+module mux_case(Y,I,S);
+output reg Y;
+input [1:0] I;
+input S;
+always @ (*)
+        casex(S)
+                1'b0: Y=I[0];
+                1'b1: Y=I[1];
+                default : Y = 1'bx;
+        endcase
+endmodule
+             
