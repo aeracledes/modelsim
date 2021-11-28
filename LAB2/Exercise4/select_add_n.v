@@ -1,31 +1,31 @@
-module select_add_n(
-	output [32:1] S,
-	output Cout,
-	input [32:1] A,B,
-	input Cin
-	);
-	wire [4:1] S0,S1,SH,SL,S_TMP,A_1,B_1,A_2,B_2;
-	wire C0,C1,CADD1,CADD2,CADD3,CNT;
-	genvar i;
-	for(i=0;i<8;i=i+1)
-	reg [3:0] param;
-	always @* begin
-	    param = instruction[4*i:1*i];
-	end
+module select_add_n(A,B,Cin,S,Cout);
+	parameter n = 32;
+	parameter cnt = 8;
+	input [n:1] A,B;
+	input Cin;
+	output [n:1] S;
+	output Cout;
+	wire [4:1]S0,S1,SL,ST,A_0,B_0,A_n,B_n;
+	wire [n:5] SH;
+	wire C0,C1,CADD1,CADD2,CADD3;
 	assign C0 = 1'b0;
 	assign C1 = 1'b1;
-	assign A_1 = {A[4],A[3],A[2],A[1]};
-	assign B_1 = {B[4],B[3],B[2],B[1]};	
-	assign A_2 = {A[8],A[7],A[6],A[5]};
-	assign B_2 = {B[8],B[7],B[6],B[5]};	
-	cla4 ADD1(SL,CADD1,A_1,B_1,Cin);
-	for(i=0;i<32;i=i+1)
-		cla4 ADD2(S0,CADD2,A_2,B_2,C0);
-		cla4 ADD3(S1,CADD3,A_2,B_2,C1);
-		mux21 MUX1(CADD2,CADD3,CADD1,Cout);
-		mux4bit MUX2(S0,S1,CADD1,S_TMP);
-		assign SH = {S_TMP,SH};
-	assign S ={SH,SL};
+	assign A_0 = {A[4],A[3],A[2],A[1]};
+	assign B_0 = {B[4],B[3],B[2],B[1]};
+	cla4 ADD1(SL,CADD1,A_0,B_0,Cin);
+	genvar i;
+	generate for(i=1;i<(n/4);i=i+1)begin :sum_loop
+	assign A_n = {A[cnt],A[cnt-1],A[cnt-2],A[cnt-3]};
+	assign B_n = {B[cnt],B[cnt-1],B[cnt-2],B[cnt-3]};
+	cla4 ADD2(S0,CADD2,A_n,B_n,C0);
+	cla4 ADD3(S1,CADD3,A_n,B_n,C1);
+	mux21 MUX1(CADD2,CADD3,CADD1,Cout);
+	mux4bit MUX2(S0,S1,CADD1,ST);
+	cnt = cnt+4;
+	assign SH = {ST,SH};
+	end
+	endgenerate
+	assign S = {SH,SL};
 endmodule
 module cla4(
     output [3:0] S,

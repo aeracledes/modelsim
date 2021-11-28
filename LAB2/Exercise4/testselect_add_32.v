@@ -1,10 +1,10 @@
 module testselect_add_32;
-wire [7:0] S;
-wire Cout;
-reg [7:0] A,B;
+reg [n:1] A,B;
 reg Cin;
+wire [n:1] S;
+wire Cout;
 
-select_add_n CUT1(S,Cout,A,B,Cin);
+select_add_n CUT1(A,B,Cin,S,Cout);
 
 initial
 begin
@@ -13,3 +13,4 @@ begin
 	A=32'hBADFECA8; B=32'hA39;
 end
 endmodule
+
