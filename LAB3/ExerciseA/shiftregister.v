@@ -6,7 +6,7 @@ module shiftregister #(parameter n = 8)(
    dff_behavioral D1(in,clk,clr,Q[0],qbar[0]);
    genvar i;
    for(i=0;i<n;i=i+1)begin
-	dff_behavioral DN(qbar[i],clk,clr,Q[i+1],qbar[i+1]);
+	dff_behavioral DN(Q[i],clk,clr,Q[i+1],qbar[i+1]);
 	end
 endmodule
 module dff_behavioral(d,clk,clear,q,qbar); 
